@@ -1,4 +1,4 @@
-RC = rustc
+RC = LD_LIBRARY_PATH=/usr/local/lib rustc
 GHC = ghc
 
 all: main
