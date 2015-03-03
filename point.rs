@@ -1,12 +1,25 @@
 #![crate_type = "lib"]
-#![feature(trace_macros)]
+
+// this will silence the warning about the fact that this uses unstable
+// IO features:
+#![feature(io)]
+
+// this silences the warning about the .as_slice() function on line 58,
+// which will eventually be replaced by &foo[..] or something.
+#![feature(core)]
+
+use std::io::Write;
 
 // The println! macro depends on thread-local storage, which Haskell/C
 // have probably not initialized. (Or, rather, the std::io interface
 // does, which means that instead I print using this small helper
-// function instead
+// function instead.) This seemed inconsistently necessary: on some
+// computers, I could use println! without problems, whereas on others,
+// I would get segfaults. This worked consistently:
 fn print_safe(s: &str) {
-    std::io::stdio::stdout().write(s.as_bytes());
+    // failing is not really an option if we're calling from Haskell,
+    // so we throw away the result in case it doesn't work.
+    let _ = std::io::stdout().write(s.as_bytes());
 }
 
 // We aren't exposing the internals of this, so I don't bother giving it
