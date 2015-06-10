@@ -14,17 +14,10 @@ and demonstrates allocating memory in Rust, passing it to Haskell, using
 wrapped Rust functions to manipulate it, and finally allowing Haskell's
 GC to call back into Rust to free it.
 
-The Rust code  currently makes use of some unstable items. I will attempt
-to update these if changes occur. Additionally, some Rust language items
-are not usable, e.g. the traditional `println!` interface requires some
-initialization on the part of Rust which is never performed, so the
-`point.rs` file provides its own `print_safe` function instead, which
-goes directly through `stdout()`.
-
 This of course requires GHC and a reasonably recent version of rustc
-installed. This version has been tested with GHC versions `7.8.{2,3,4}`
-and the following rustc versions:
+installed. This version has been tested with GHC versions `7.8.4` and
+`7.10.1`, and the following rustc versions:
 
-    1.0.0-dev (14f0942a4 2015-03-03) (built 2015-03-03)
+    1.0.0 (a59de37e9 2015-05-13) (built 2015-05-14)
 
 All the examples here I release into the public domain.
